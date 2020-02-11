@@ -1,5 +1,5 @@
 <template>
-  <b-card title="การจองโต๊ะ" sub-title="กรองรายละเอีอด">
+  <b-card title="การจองโต๊ะ" sub-title="กรองรายละเอีอด" class="container" >
     <div>
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-form-group
@@ -43,9 +43,9 @@
         <b-button type="submit" variant="primary" :to="{path:'/OrderRED'}">Submit</b-button>
         <b-button type="reset" variant="danger">Reset</b-button>
       </b-form>
-      <b-card class="mt-3" header="Form Data Result">
+      <!-- <b-card class="mt-3" header="Form Data Result">
         <pre class="m-0">{{ form }}</pre>
-      </b-card>
+      </b-card> -->
     </div>
   </b-card>
 </template>

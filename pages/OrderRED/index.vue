@@ -3,7 +3,7 @@
     <b-card title="รายการอาหาร">
       <div v-for="item in Mu" :key="item">
         <b-img  :src= item.pic fluid alt="Left image" rounded ></b-img>
-        <h1>{{item.name}} <button type="button" class="btn btn-primary" value=item.price >ใส่ตะกร้า</button></h1>
+        <h1>{{item.name}} <button type="button" class="btn btn-primary" value=item.price >เพิ่มลงในตะกร้า</button></h1>
         </div>
         <b-button type="submit" variant="primary" href='http://localhost:8080/'>ชำระเงิน</b-button>
     </b-card>

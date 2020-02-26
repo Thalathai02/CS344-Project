@@ -1,23 +1,122 @@
 <template>
-  <div class="container">
-    <b-card title="รายการอาหาร">
-      <div v-for="item in Mu" :key="item">
-        <b-img  :src= item.pic fluid alt="Left image" rounded ></b-img>
-        <h1>{{item.name}} <button type="button" class="btn btn-primary" value=item.price >เพิ่มลงในตะกร้า</button></h1>
-        </div>
-        <b-button type="submit" variant="primary" href='http://localhost:8080/'>ชำระเงิน</b-button>
-    </b-card>
+<div>
+
+
+
+
+<div id="carouselExampleInterval" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-interval="10000">
+        <img src="https://i.imgur.com/zxbgfn7.jpg" class="d-block w-100 h-50" alt="...">
+    </div>
+    <div class="carousel-item" data-interval="2000">
+      <img src="https://aboutmom.co/wp-content/uploads/2017/10/3-3.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://ed.files-media.com/ud/review/1/153/456593/At-Ta-Rote_9.jpg" class="d-block w-100" alt="...">
+    </div>
   </div>
+  <a class="carousel-control-prev" href="#carouselExampleInterval" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleInterval" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="text-center">
+   <h2 >จำนวนรายการอาหารที่สั่ง {{this.$store.state.product.counter}}</h2>
+    <b-link  type="button"  :to="{path:'/OrderList/OrderList'}">รายการอาหาร</b-link >
+    <div>
+      <button class="text-center btn btn-success" v-show="show" @click="get()">สั่งเมนูอาหาร</button>
+
+    </div>
+
+  </div>
+
+<div class="container">
+    <div class="row">
+      <div v-for="(name,index) in DataList" :key="index" class="col-md-3 col-6 my-1">
+        <div class="card=auto">
+          <img :src="name.PicUrl" class="card-img-top" />
+          <div class="card-body">
+            <div class="card-title">
+              <h3>{{ name.Name }}</h3>
+            </div>
+            <div>
+              <h5>
+                {{name.Price}} ฿
+                <button
+                  
+                  type="button"
+                  class="btn btn-success"
+                  value="item.price"
+                  @click="up(name.Name,name.Price)"
+                >เพิ่มลงในตะกร้า</button>
+              </h5>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
+
 </template>
 <script>
+import { db } from '@/plugins/firebaseRL.js'  
+
 import axios from 'axios'
 import Mu from '@/store/Testsystem.json'
 export default {
   data:()=>({
+      DataList:  [],
+      show: true,
+    //   fields: [  
+    //   { text: 'Name', value: 'username' },
+    //   { text: 'Price', value: 'price' },
+    //   { text: 'PicUrl', value: 'url' },
+    //  ],
+
       Mu:Mu,
     
-  })
- 
+  }),
+  methods: {
+       get() {
+      db.collection('Admin')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            // doc.data() is never undefined for query doc snapshots
+            //  console.log(doc.id, " => ", doc.data());
+            this.DataList.push(doc.data())
+            console.log(this.DataList)
+            this.show = false
+          })
+        })
+    },
+    up(todos,Price) {
+      this.$store.commit('product/Updatefood', todos),
+      this.$store.commit('product/UpdatePrice', Price),
+
+       this.$store.commit('product/increment',Price)
+      
+    },
+    
+  }
+
   
 }
 </script>

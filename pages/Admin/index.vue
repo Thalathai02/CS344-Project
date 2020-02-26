@@ -2,8 +2,13 @@
   <div class="container" >
       <div>
            <h2 class="display-3 title">Administrator</h2>
-         <b-link type="button" class="btn btn-primary" :to="{path:'/Admin/check'}">Check Name</b-link>
-         <b-link  type="button" class="btn btn-primary" :to="{path:'/Admin/Edit'}">Edit</b-link >
+         <!-- <b-link type="button" class="btn btn-primary" :to="{path:'/Admin/check'}">Check Name</b-link> -->
+         <b-link  type="button" class="btn btn-primary" :to="{path:'/Admin/Edit'}">InsertFood</b-link >
+         <b-link  type="button" class="btn btn-primary" :to="{path:'/Admin/User'}">User</b-link >
+         <b-link  type="button" class="btn btn-primary" :to="{path:'/Admin/Order'}">Order</b-link >
+
+
+         
       </div>
   </div>
 </template>

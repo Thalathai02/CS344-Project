@@ -3,21 +3,27 @@
     <div>
       <h1>Check</h1>
       <br />
-      <b-button class="btn btn-primary">Search</b-button>
+      <b-button class="btn btn-primary" v-show="show" @click="get()">Search</b-button>
       <br>
-      <b-table striped hover :items="items" :fields="fields"></b-table>
+      <b-table striped hover :items="DataList" :fields="fields"></b-table>
     </div>
   </div>
 </template>
 
 <script>
+import { db } from '@/plugins/firebaseRL.js'  
+
 export default {
   data() {
-    return {
+    return {     
+      show: true,
+
+      DataList:  [],
+
       // Note 'isActive' is left out and will not appear in the rendered table
       fields: [
         {
-          key: 'Date Time',
+          key: 'Datetime',
           sortable: true
         },
         {
@@ -25,29 +31,36 @@ export default {
           sortable: false
         },
         {
-          key: 'Zone',
+          key: 'SetRoom',
           label: 'Person',
           sortable: true,
           // Variant applies to the whole column, including the header and footer
         },{
-          key: 'Phone',
+          key: 'Phonenumber',
           sortable: false
         },
       ],
-      items: [
-        {
-          isActive: true,
-          age: 40,
-          first_name: 'Dickerson',
-          last_name: 'Macdonald'
-        },
-        { isActive: false, age: 21, first_name: 'Larsen', last_name: 'Shaw' },
-        { isActive: false, age: 89, first_name: 'Geneva', last_name: 'Wilson' },
-        { isActive: true, age: 38, first_name: 'Jami', last_name: 'Carney' }
-      ]
+      
     }
-  }
+  },
+  methods: {
+       get() {
+      db.collection('User')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            // doc.data() is never undefined for query doc snapshots
+            //  console.log(doc.id, " => ", doc.data());
+            this.DataList.push(doc.data())
+            console.log(this.DataList)
+            this.show = false
+          })
+        })
+    }
+
 }
+}
+
 </script>
 
 <style>

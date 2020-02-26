@@ -7,7 +7,7 @@
         <h2 class="subtitle">Test System</h2>
         <div class="links">
           <b-link :to="{path:'/Reservations'}" class="button--green">การจองโต๊ะ</b-link>
-          <b-link to="#" target="_blank" class="button--grey">รายการอาหาร</b-link>
+          <b-link :to="{path:'/showMenu'}" class="button--grey">รายการอาหาร</b-link>
        
       </div>
     </div>
